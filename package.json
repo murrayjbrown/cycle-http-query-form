@@ -10,7 +10,7 @@
     "react-dom": "latest",
     "react-hyperscript": "latest",
     "rsvp": "latest",
-    "rx": "latest",
+    "rx-lite": "latest",
     "superagent": "latest"
   },
   "devDependencies": {
@@ -58,7 +58,7 @@
     "build:pack":
       "npm run webpack",
     "build:public":
-      "cpy src/*.html public/ && ncp src/img public/img",
+      "npm run clean:public && ncp dist/ public/",
     "build:test":
       "npm run webpack && npm run test",
     "clean":
@@ -78,7 +78,7 @@
     "clean:map:ts":
       "rimraf build/app/*.d.ts build/lib/*.d.ts",
     "clean:public":
-      "rimraf public/* && mkdir -p public/img",
+      "rimraf public/*",
     "compile":
       "npm run compile:js",
     "compile:app":
@@ -92,15 +92,17 @@
     "compile:ts":
       "npm run tsc",
     "deploy":
-      "npm run build:public && npm run dist && ncp dist public",
-    "deploy:assets":
-      "ncp src/img public/img && cpy src/*.html public/",
+      "npm run build:public && npm run deploy:public",
+    "deploy:public":
+      "ncp dist/ public/",
     "dist":
       "npm run clean:dist && npm run dist:app && npm run dist:assets",
     "dist:app":
-      "cpy build/app/*.bundle.js dist/app/ && cpy build/app/*.json dist/app/",
+      "cpy build/app/*.bundle.js dist/app/",
     "dist:assets":
-      "cpy build/*.html dist/ && cpy build/img/* dist/img/",
+      "cpy build/*.html dist/ && ncp build/img/ dist/img/",
+    "dist:json":
+      "cpy build/app/*.json dist/app/",
     "install":
       "npm run build && npm run deploy",
     "env":

@@ -1,7 +1,7 @@
 //
 // MODEL
 //
-import {Observable} from 'rx';
+import {Observable} from 'rx-lite';
 export default function model(events) {
   const ENDPOINT = 'http://jsonplaceholder.typicode.com/users/';
   const endpoint$ = events.DOM.submitGetUserInfo$
