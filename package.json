@@ -1,0 +1,137 @@
+{
+  "name": "cycle-http-query-form",
+  "dependencies": {
+    "@cycle/core": "latest",
+    "@cycle/dom": "latest",
+    "express": "latest",
+    "firebase": "latest",
+    "hyperscript": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-hyperscript": "latest",
+    "rsvp": "latest",
+    "rx": "latest",
+    "superagent": "latest"
+  },
+  "devDependencies": {
+    "babel-cli": "latest",
+    "babel-preset-react": "latest",
+    "babel-preset-es2015": "latest",
+    "chai": "latest",
+    "cpy-cli": "latest",
+    "eslint": "latest",
+    "eslint-plugin-no-class": "latest",
+    "eslint-plugin-no-inferred-method-name": "latest",
+    "file-loader": "latest",
+    "json-loader": "latest",
+    "mocha": "latest",
+    "ncp": "latest",
+    "rimraf": "latest",
+    "typescript": "latest",
+    "url-loader": "latest",
+    "webpack": "latest"
+  },
+  "scripts": {
+    "babel": "npm run babel:lib && npm run babel:common && npm run babel:app",
+    "babel:app":
+      "babel -m umd --out-dir build/app src/app/",
+    "babel:common":
+      "babel -m umd --out-file build/common.js src/common.js",
+    "babel:lib":
+      "babel -m umd --out-dir build/lib/ src/lib/",
+    "babel:tests":
+      "babel -m umd --out-dir build/tests/ src/tests/",
+    "build":
+      "npm run clean && npm run deploy:assets && npm run build:all",
+    "build:all":
+      "npm run build:common && npm run build:app && npm run build:pack",
+    "build:app":
+      "npm run compile:js && npm run build:assets",
+    "build:assets":
+      "cpy src/*.html build/ && ncp src/img build/img",
+    "build:common":
+      "npm run compile:common",
+    "build:json":
+      "cpy src/app/*.json build/app/",
+    "build:lib":
+      "npm run compile:lib",
+    "build:pack":
+      "npm run webpack",
+    "build:public":
+      "cpy src/*.html public/ && ncp src/img public/img",
+    "build:test":
+      "npm run webpack && npm run test",
+    "clean":
+      "npm run clean:build && npm run clean:dist && npm run clean:public",
+    "clean:build":
+      "rimraf build/* && mkdir -p build/app build/lib build/img",
+    "clean:dist":
+      "rimraf dist/* && mkdir -p dist/img dist/app",
+    "clean:js":
+      "rimraf build/*.js build/app/*.js build/lib/*js",
+    "clean:json":
+      "rimraf build/app/*.json build/lib/*.json",
+    "clean:map":
+      "npm run clean:map:js && npm run clean:map:ts",
+    "clean:map:js":
+      "rimraf build/app/*js.map build/lib/*.js.map",
+    "clean:map:ts":
+      "rimraf build/app/*.d.ts build/lib/*.d.ts",
+    "clean:public":
+      "rimraf public/* && mkdir -p public/img",
+    "compile":
+      "npm run compile:js",
+    "compile:app":
+      "npm run babel:app",
+    "compile:common":
+      "npm run babel:common",
+    "compile:lib":
+      "npm run babel:lib",
+    "compile:js":
+      "npm run babel",
+    "compile:ts":
+      "npm run tsc",
+    "deploy":
+      "npm run build:public && npm run dist && ncp dist public",
+    "deploy:assets":
+      "ncp src/img public/img && cpy src/*.html public/",
+    "dist":
+      "npm run clean:dist && npm run dist:app && npm run dist:assets",
+    "dist:app":
+      "cpy build/app/*.bundle.js dist/app/ && cpy build/app/*.json dist/app/",
+    "dist:assets":
+      "cpy build/*.html dist/ && cpy build/img/* dist/img/",
+    "install":
+      "npm run build && npm run deploy",
+    "env":
+      "env",
+    "eslint":
+      "npm run eslint:app && npm run eslint:lib",
+    "eslint:app":
+      "eslint src/app/*.js",
+    "eslint:lib":
+      "eslint src/lib/*.js",
+    "lint":
+      "npm run eslint:app & npm run eslint:lib",
+    "lint:app":
+      "npm run eslint:app",
+    "lint:lib":
+      "npm run eslint:lib",
+    "pack":
+      "npm run webpack",
+    "run":
+      "npm run build && cd build && python -m SimpleHTTPServer",
+    "test":
+      "mocha tests/",
+    "tsc":
+      "npm run tsc:lib && npm run tsc:app",
+    "tsc:app":
+      "tsc -d -m umd --outDir build/app src/app/*.ts",
+    "tsc:lib":
+      "tsc -d -m umd --outDir build/lib src/lib/*.ts",
+    "typescript":
+      "npm run tsc",
+    "webpack":
+      "webpack -d --display-modules --display-chunks"
+  }
+}
